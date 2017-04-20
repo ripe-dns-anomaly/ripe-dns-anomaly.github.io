@@ -1,3 +1,5 @@
+$(document).ready(function() {
+
 $.get('data.csv', function(data) {
     // Split the lines
     var lines = data.split('\n');
@@ -65,3 +67,4 @@ $.get('data.csv', function(data) {
     var chart = new Highcharts.Chart(options);
 });
 
+});
