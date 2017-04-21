@@ -78,7 +78,16 @@ $(document).ready(function() {
             }],
         series: [{
             type: 'line',
-            name: 'RTT'
+            name: 'RTT',
+            zIndex: 6
+        },
+        {
+            type: 'arearange',
+            lineWidth: 0,
+            linkedTo: ':previous',
+            color: Highcharts.getOptions().colors[1],
+            fillOpacity: 0.7,
+            zIndex: 5
         },
         {
             type: 'arearange',
@@ -86,7 +95,7 @@ $(document).ready(function() {
             linkedTo: ':previous',
             color: Highcharts.getOptions().colors[0],
             fillOpacity: 0.3,
-            zIndex: 0
+            zIndex: 4
         },
         {
             type: 'scatter',
@@ -94,7 +103,8 @@ $(document).ready(function() {
             marker: {
                 radius: 7,
                 fillColor: '#fc0905'
-            }
+            },
+            zIndex: 7
         }
         ]
     };
@@ -149,7 +159,16 @@ $(document).ready(function() {
             }],
         series: [{
             type: 'line',
-            name: 'RTT'
+            name: 'RTT',
+            zIndex: 6
+        },
+        {
+            type: 'arearange',
+            lineWidth: 0,
+            linkedTo: ':previous',
+            color: Highcharts.getOptions().colors[1],
+            fillOpacity: 0.7,
+            zIndex: 5
         },
         {
             type: 'arearange',
@@ -157,7 +176,7 @@ $(document).ready(function() {
             linkedTo: ':previous',
             color: Highcharts.getOptions().colors[0],
             fillOpacity: 0.3,
-            zIndex: 0
+            zIndex: 4
         },
         {
             type: 'scatter',
@@ -165,7 +184,8 @@ $(document).ready(function() {
             marker: {
                 radius: 7,
                 fillColor: '#fc0905'
-            }
+            },
+            zIndex: 7
         }
         ]
     };
@@ -203,8 +223,13 @@ $(document).ready(function() {
 
     });
 
-    $.getJSON('./data/rtt_anom.json', function(data) {
+    $.getJSON('./data/rtt_ranges_90.json', function(data) {
         options_rtt.series[2].data = data;
+
+    });
+
+    $.getJSON('./data/rtt_anom.json', function(data) {
+        options_rtt.series[3].data = data;
         var chart = new Highcharts.Chart(options_rtt);
     });
 
@@ -231,8 +256,13 @@ $(document).ready(function() {
 
     });
 
-    $.getJSON('./data/lhr_rtt_anom.json', function(data) {
+    $.getJSON('./data/lhr_rtt_ranges_90.json', function(data) {
         options_rtt_site.series[2].data = data;
+
+    });
+
+    $.getJSON('./data/lhr_rtt_anom.json', function(data) {
+        options_rtt_site.series[3].data = data;
         var chart = new Highcharts.Chart(options_rtt_site);
 
     });
