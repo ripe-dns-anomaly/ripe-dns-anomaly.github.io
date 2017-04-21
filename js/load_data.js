@@ -30,6 +30,35 @@ $(document).ready(function() {
         }]
     };
 
+    var options_path = {
+        chart: {
+            renderTo: 'pathstability'
+        },
+        title: {
+            text: 'Path stability'
+        },
+        xAxis: [{
+            type:'datetime'
+        }],
+        yAxis: [{
+                min: 0,
+                title: {
+                    text: 'Switches'
+                }
+            }],
+        series: [{
+            type: 'line',
+            name: 'Switches',
+        }, {
+            type: 'scatter',
+            name: 'Anomalies',
+            marker: {
+                radius: 7,
+                fillColor: '#fc0905'
+            }
+        }]
+    };
+
     var options_rtt = {
         chart: {
             renderTo: 'rtt'
@@ -106,7 +135,7 @@ $(document).ready(function() {
             name: 'Anomalies',
             marker: {
                 radius: 7,
-                fillColor: '#fc0905' 
+                fillColor: '#fc0905'
             }
         }]
     };
@@ -114,7 +143,7 @@ $(document).ready(function() {
     var options_rtt_site = {
         chart: {
             renderTo: 'rtt-site'
-           
+
         },
         title: {
             text: 'Median RTT'
@@ -172,8 +201,18 @@ $(document).ready(function() {
         var chart = new Highcharts.Chart(options_reachability);
     });
 
+    $.getJSON('./data/path.json', function(data) {
+        options_path.series[0].data = data
+        var chart = new Highcharts.Chart(options_path);
+    });
+
+    $.getJSON('./data/path_anomalies.json', function(data) {
+        options_path.series[1].data = data
+        var chart = new Highcharts.Chart(options_path);
+    });
+
 // Overall Performance
-    
+
     $.getJSON('./data/rtt.json', function(data) {
         options_rtt.series[0].data = data;
 
@@ -209,12 +248,12 @@ $(document).ready(function() {
 
     $.getJSON('./data/lhr_rtt.json', function(data) {
         options_rtt_site.series[0].data = data;
-        
+
     });
 
     $.getJSON('./data/lhr_rtt_ranges.json', function(data) {
         options_rtt_site.series[1].data = data;
-        
+
     });
 
     $.getJSON('./data/lhr_rtt_ranges_90.json', function(data) {
