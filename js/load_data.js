@@ -70,13 +70,13 @@ $(document).ready(function() {
         ]
     };
 
-    var options_path = {
+    var options_reachability_site = {
         chart: {
-            renderTo: 'pathstability',
-            type: 'line'
+            renderTo: 'reachability-site'
         },
         title: {
-            text: 'Number of path changes'
+            text: 'Probe Reachability'
+
         },
         xAxis: [{
             type:'datetime'
@@ -84,29 +84,80 @@ $(document).ready(function() {
         yAxis: [{
                 min: 0,
                 title: {
-                    text: 'Switches'
+
+                    text: 'Probes'
                 }
             }],
-        series: [{}]
+        series: [{
+            type: 'line',
+            name: 'Reachability',
+        }, {
+            type: 'scatter',
+            name: 'Anomalies',
+            marker: {
+                radius: 7,
+                fillColor: '#fc0905' 
+            }
+        }]
     };
+
+    var options_rtt_site = {
+        chart: {
+            renderTo: 'rtt-site'
+           
+        },
+        title: {
+            text: 'Median RTT'
+        },
+        xAxis: [{
+            type:'datetime'
+        }],
+        yAxis: [{
+                min: 0,
+                title: {
+                    text: 'RTT (ms)'
+                }
+            }],
+        series: [{
+            type: 'line',
+            name: 'RTT'
+        },  
+        {
+            type: 'arearange',
+            lineWidth: 0,
+            linkedTo: ':previous',
+            color: Highcharts.getOptions().colors[0],
+            fillOpacity: 0.3,
+            zIndex: 0
+        },
+        {
+            type: 'scatter',
+            name: 'Anomalies',
+            marker: {
+                radius: 7,
+                fillColor: '#fc0905' 
+            }
+        }
+        ]
+    };
+
+// Overall Reachability
 
     $.getJSON('./data/reachability.json', function(data) {
         options_reachability.series[0].data = data
     });
-
 
     $.getJSON('./data/reachability_anom.json', function(data) {
         options_reachability.series[1].data = data
         var chart = new Highcharts.Chart(options_reachability);
     });
 
-
+// Overall Performance
+    
     $.getJSON('./data/rtt.json', function(data) {
         options_rtt.series[0].data = data;
 
     });
-
-
 
     $.getJSON('./data/rtt_ranges.json', function(data) {
         options_rtt.series[1].data = data;
@@ -118,10 +169,33 @@ $(document).ready(function() {
         var chart = new Highcharts.Chart(options_rtt);
     });
 
-    $.getJSON('./data/path.json', function(data) {
-        options_reachability.series[0].data = data;
-        options_reachability.series[0].name = 'Path stability'
-        var chart = new Highcharts.Chart(options_path);
+// Site Reachability
+
+    $.getJSON('./data/lhr_reachability.json', function(data) {
+        options_reachability_site.series[0].data = data
+    });
+
+    $.getJSON('./data/lhr_reachability_anom.json', function(data) {
+        options_reachability_site.series[1].data = data
+        var chart = new Highcharts.Chart(options_reachability_site);
+    });
+
+// Site Performance
+
+    $.getJSON('./data/lhr_rtt.json', function(data) {
+        options_rtt_site.series[0].data = data;
+        
+    });
+
+    $.getJSON('./data/lhr_rtt_ranges.json', function(data) {
+        options_rtt_site.series[1].data = data;
+        
+    });
+
+    $.getJSON('./data/lhr_rtt_anom.json', function(data) {
+        options_rtt_site.series[2].data = data;
+        var chart = new Highcharts.Chart(options_rtt_site);
+
     });
 
 });
