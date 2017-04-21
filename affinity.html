@@ -9,9 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="./img/favicon.ico">
 
-
     <title>Anomalizers</title>
-
 
     <!-- Bootstrap core CSS -->
     <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,9 +29,7 @@
   <body>
 
     <nav class="navbar navbar-inverse navbar-fixed-top">
-      
       <div class="container">
-        
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -45,48 +41,27 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Reachability</a></li>
-            <li><a href="path.html">Route Path</a></li>
+            <li><a href="index.html">Reachability</a></li>
+            <li class="active"><a href="path.html">Route Path</a></li>
             <li><a href="catchment.html">Catchment</a></li>
-	    <li><a href="affinity.html">Affinity</a></li>
           </ul>
-
         </div><!--/.nav-collapse -->
-
       </div>
     </nav>
 
     <div class="container">
 
       <div class="starter-template">
-        <h1>Root Performance Anomaly Detector</h1>
+        <h1>Affinity</h1>
       </div>
 
       <div class="row">
-          <p class="lead">Reachability and Performance for K-Root</p>
-          <div id='reachability'>
-              
+          <!--<p class="lead">Number of probes that reached a server over time.</p>-->
+          <div id='affinity'>
+
           </div>
       </div>
 
-      <div class="row">
-          <div id='rtt'>
-              
-          </div>
-      </div>
-
-      <div class="row">
-          <p class="lead">Reachability and Performance per Site (London)</p>
-          <div id='reachability-site'>
-              
-          </div>
-      </div>
-
-          <div class="row">
-          <div id='rtt-site'>
-              
-          </div>
-      </div>
 
     </div><!-- /.container -->
 
@@ -100,7 +75,6 @@
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
     <script src='./js/load_data.js'></script>
   </body>
 </html>
