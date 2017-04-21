@@ -30,6 +30,45 @@ $(document).ready(function() {
         }]
     };
 
+
+    var options_affinity = {
+        chart: {
+            renderTo: 'affinity'
+        },
+	dataLabels: {
+		enabled: true,
+	},
+        title: {
+            text: 'Probe Affinity'
+        },
+        xAxis: [{
+            type:'datetime'
+        }],
+        yAxis: [{
+                min: 0,
+                title: {
+                    text: 'Site switches per hour'
+                }
+            }],
+        series: [{
+            type: 'scatter',
+            name: 'Anomalies',
+            marker: {
+                radius: 7,
+                fillColor: '#fc0905'
+            }
+        },
+	{
+            type: 'scatter',
+            name: 'Average',
+            marker: {
+                radius: 7,
+                fillColor: '#00ff00'
+            }
+        }
+	]
+    };
+
     var options_path = {
         chart: {
             renderTo: 'pathstability'
@@ -266,5 +305,13 @@ $(document).ready(function() {
         var chart = new Highcharts.Chart(options_rtt_site);
 
     });
-
+    //Site affinity
+    $.getJSON('./data/site_affinity_normal.json', function(data) {
+        options_affinity.series[1].data = data;
+	
+    });
+    $.getJSON('./data/site_affinity.json', function(data) {
+        options_affinity.series[0].data = data;
+	var chart = new Highcharts.Chart(options_affinity);
+    });
 });
