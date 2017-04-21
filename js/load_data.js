@@ -50,7 +50,7 @@ $(document).ready(function() {
         series: [{
             type: 'line',
             name: 'RTT'
-        }, 
+        },  
         {
             type: 'arearange',
             lineWidth: 0,
@@ -58,7 +58,16 @@ $(document).ready(function() {
             color: Highcharts.getOptions().colors[0],
             fillOpacity: 0.3,
             zIndex: 0
-        }]
+        },
+        {
+            type: 'scatter',
+            name: 'Anomalies',
+            marker: {
+                radius: 7,
+                fillColor: '#fc0905' 
+            }
+        }
+        ]
     };
 
     $.getJSON('./data/reachability.json', function(data) {
@@ -77,8 +86,15 @@ $(document).ready(function() {
         
     });
 
-        $.getJSON('./data/rtt_ranges.json', function(data) {
+
+
+    $.getJSON('./data/rtt_ranges.json', function(data) {
         options_rtt.series[1].data = data;
+        
+    });
+
+    $.getJSON('./data/rtt_anom.json', function(data) {
+        options_rtt.series[2].data = data;
         var chart = new Highcharts.Chart(options_rtt);
     });
 
