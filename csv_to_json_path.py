@@ -5,16 +5,18 @@ from datetime import datetime
 import json
 import numpy
 
-data = csv.DictReader(open("data/k-path.csv"))
+data = csv.DictReader(open("data/k-path_nov30.csv"))
 
 timedict = defaultdict(int)
 
 for row in data:
     for key in row:
         try:
-            timestamp = int(datetime.strptime(key, "%Y-%m-%d-%H").strftime("%s"))*1000
+            timestamp = datetime.strptime(key, "%Y-%m-%d-%H")
+            if timestamp < datetime(2015,11,30,0,0) or timestamp > datetime(2015,11,30,23,59):
+                continue
             value = int(row[key])
-            timedict[timestamp] += 1 if value > 0 else 0
+            timedict[int(timestamp.strftime("%s"))*1000] += 1 if value > 0 else 0
         except ValueError:
             pass
 
@@ -27,9 +29,6 @@ std = numpy.std(list(timedict.values()))
 with open("data/path_anomalies.json", "w") as outputfile:
     output = []
     for x in timedict:
-        if timedict[x] > percentiles[1]+3*std or timedict[x] < percentiles[1]-3*std:
+        if timedict[x] > percentiles[1]+std or timedict[x] < percentiles[1]-std:
             output.append([x, timedict[x]])
     print(json.dumps(output), file=outputfile)
-#data = pandas.read_csv("data/k-path.csv",sep=",",skiprows=1)
-
-#print(data.sum(axis=0).head())
