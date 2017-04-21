@@ -25,7 +25,7 @@ $(document).ready(function() {
             name: 'Anomalies',
             marker: {
                 radius: 7,
-                fillColor: '#fc0905' 
+                fillColor: '#fc0905'
             }
         }]
     };
@@ -33,7 +33,7 @@ $(document).ready(function() {
     var options_rtt = {
         chart: {
             renderTo: 'rtt'
-           
+
         },
         title: {
             text: 'Median RTT'
@@ -50,7 +50,7 @@ $(document).ready(function() {
         series: [{
             type: 'line',
             name: 'RTT'
-        },  
+        },
         {
             type: 'arearange',
             lineWidth: 0,
@@ -64,7 +64,7 @@ $(document).ready(function() {
             name: 'Anomalies',
             marker: {
                 radius: 7,
-                fillColor: '#fc0905' 
+                fillColor: '#fc0905'
             }
         }
         ]
@@ -72,7 +72,7 @@ $(document).ready(function() {
 
     var options_path = {
         chart: {
-            renderTo: 'path_stability',
+            renderTo: 'pathstability',
             type: 'line'
         },
         title: {
@@ -99,18 +99,18 @@ $(document).ready(function() {
         options_reachability.series[1].data = data
         var chart = new Highcharts.Chart(options_reachability);
     });
-    
+
 
     $.getJSON('./data/rtt.json', function(data) {
         options_rtt.series[0].data = data;
-        
+
     });
 
 
 
     $.getJSON('./data/rtt_ranges.json', function(data) {
         options_rtt.series[1].data = data;
-        
+
     });
 
     $.getJSON('./data/rtt_anom.json', function(data) {
