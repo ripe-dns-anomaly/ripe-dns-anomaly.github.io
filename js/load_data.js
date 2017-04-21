@@ -1,9 +1,9 @@
 $(document).ready(function() {
 
+
     var options_reachability = {
         chart: {
-            renderTo: 'reachability',
-            type: 'line'
+            renderTo: 'reachability'
         },
         title: {
             text: 'Probe Reachability'
@@ -17,13 +17,23 @@ $(document).ready(function() {
                     text: 'Probes'
                 }
             }],
-        series: [{}]
+        series: [{
+            type: 'line',
+            name: 'Reachability',
+        }, {
+            type: 'scatter',
+            name: 'Anomalies',
+            marker: {
+                radius: 7,
+                fillColor: '#fc0905' 
+            }
+        }]
     };
 
     var options_rtt = {
         chart: {
-            renderTo: 'rtt',
-            type: 'line'
+            renderTo: 'rtt'
+           
         },
         title: {
             text: 'Median RTT'
@@ -37,18 +47,38 @@ $(document).ready(function() {
                     text: 'RTT (ms)'
                 }
             }],
-        series: [{}]
+        series: [{
+            type: 'line',
+            name: 'RTT'
+        }, 
+        {
+            type: 'arearange',
+            lineWidth: 0,
+            linkedTo: ':previous',
+            color: Highcharts.getOptions().colors[0],
+            fillOpacity: 0.3,
+            zIndex: 0
+        }]
     };
 
     $.getJSON('./data/reachability.json', function(data) {
-        options_reachability.series[0].data = data;
-        options_reachability.series[0].name = 'Reachability'
+        options_reachability.series[0].data = data
+    });
+
+
+    $.getJSON('./data/reachability_anom.json', function(data) {
+        options_reachability.series[1].data = data
         var chart = new Highcharts.Chart(options_reachability);
     });
+    
 
     $.getJSON('./data/rtt.json', function(data) {
         options_rtt.series[0].data = data;
-        options_rtt.series[0].name = 'RTT'
+        
+    });
+
+        $.getJSON('./data/rtt_ranges.json', function(data) {
+        options_rtt.series[1].data = data;
         var chart = new Highcharts.Chart(options_rtt);
     });
 
