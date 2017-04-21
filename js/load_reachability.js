@@ -5,6 +5,15 @@ $(document).ready(function() {
             renderTo: 'reachability',
             type: 'line'
         },
+        title: {
+            text: 'Probe Reachability'
+        },
+        yAxis: [{
+                min: 0,
+                title: {
+                    text: 'Probes'
+                }
+            }],
         series: [{}]
     };
 
