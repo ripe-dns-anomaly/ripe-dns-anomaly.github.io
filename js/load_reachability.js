@@ -8,6 +8,9 @@ $(document).ready(function() {
         title: {
             text: 'Probe Reachability'
         },
+        xAxis: [{
+            type:'datetime'
+        }],
         yAxis: [{
                 min: 0,
                 title: {
