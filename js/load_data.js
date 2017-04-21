@@ -76,6 +76,7 @@ $(document).ready(function() {
         },
         title: {
             text: 'Probe Reachability'
+
         },
         xAxis: [{
             type:'datetime'
@@ -83,6 +84,7 @@ $(document).ready(function() {
         yAxis: [{
                 min: 0,
                 title: {
+
                     text: 'Probes'
                 }
             }],
@@ -193,6 +195,7 @@ $(document).ready(function() {
     $.getJSON('./data/lhr_rtt_anom.json', function(data) {
         options_rtt_site.series[2].data = data;
         var chart = new Highcharts.Chart(options_rtt_site);
+
     });
 
 });
